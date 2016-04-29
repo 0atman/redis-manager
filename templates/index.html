@@ -8,20 +8,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- css -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-  <style>
-    .panel .btn-group{
-      margin-top: -6px;
-      margin-right: -10px;
-    }
-    .list-group-item{
-      padding: 2px 2px 2px 10px;
-    }
-    .list-group-item:hover{
-      background-color: #f5f5f5;
-    }
-  </style>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -33,7 +22,32 @@
 <body>
   <div class="container">
 
-    <h2>Redis Lists</h2>
+    <h2><i class="fa fa-database" aria-hidden="true"></i> Redis Manager</h2>
+
+    <hr>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="input-group">
+          <span class="input-group-addon">Send selected messages to: </span>
+          <input type="text" class="form-control" placeholder="q:hurdle" />
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button">lpush</button>
+            <button class="btn btn-default" type="button">rpush</button>
+            <button class="btn btn-danger" type="button">delete</button>
+          </span>
+        </div>
+        <br>
+        <div class="input-group">
+          <span class="input-group-addon">Search</span>
+          <input id="derp" class="form-control" type="text" name="name" placeholder="locumprofile">
+        </div>
+      </div>
+      <div class="col-md-6">
+
+      </div>
+    </div>
+
     <hr>
 
     <div class="row">
@@ -43,11 +57,11 @@
         <div class="panel panel-default">
           <div class="panel-heading">
             <h3 class="panel-title">
-              <span>{{ key.name }}</span>
-              <div class="btn-group btn-group-sm pull-right">
-                <button type="button" class="btn btn-default"><span>lpush</span></button>
-                <button type="button" class="btn btn-default"><span>rpush</span></button>
-                <button type="button" class="btn btn-danger"><span>Delete</span></button>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox">
+                  <span>{{ key.name }}</span>
+                </label>
               </div>
             </h3>
           </div>
@@ -57,21 +71,26 @@
 
               <div class="checkbox">
                 <label>
-                  <input type="checkbox">{{ message }}</label>
+                  <input type="checkbox">
+                  <small class="displayed-message">{{ message }}</small>
+                  <small class="original-message hidden">{{ message }}</small>
+                </label>
               </div>
             </li>
             {% endfor %}
           </ul>
         </div>
-        </div>
-      {% endfor %}
-      {% endfor %}
       </div>
+      {% endfor %}
+      {% endfor %}
     </div>
-
   </div>
-  <!-- js -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+</div>
+<!-- js -->
+<script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+<script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+<script src="{{ url_for('static', filename='js/ui.js') }}"></script>
+<script src="{{ url_for('static', filename='js/actions.js') }}"></script>
 </body>
 </html>

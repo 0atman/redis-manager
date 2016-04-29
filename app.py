@@ -1,5 +1,5 @@
 import os, redis_helper, json
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask import render_template
 
 app = Flask(__name__)
@@ -29,6 +29,26 @@ def get_all_lists_with_items():
     return jsonify(
         lists=redis_helper.get_all_lists_with_items()
     )
+
+@app.route('/action_messages', methods = ['POST'])
+def action_messages():
+    response_data = request.json
+    action = response_data['action']
+    move_messages_to = response_data['move_messages_to']
+    messages_to_move = response_data['messages_to_move']
+    for queue in messages_to_move:
+        for message in queue['messages']:
+            queue_name = queue['name']
+            if action == 'delete':
+                redis_helper.delete_message_from_list(queue_name, message)
+            elif 'lpush':
+                redis_helper.delete_message_from_list(queue_name, message)
+                redis_helper.lpush_message(move_messages_to, message)
+            elif 'rpush':
+                redis_helper.delete_message_from_list(queue_name, message)
+                redis_helper.rpush_message(move_messages_to, message)
+    return 'Action complete'
+
 
 if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 5000.

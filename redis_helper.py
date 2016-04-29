@@ -29,4 +29,13 @@ def get_all_lists_with_items():
     return all_lists_with_items
 
 def delete_message_from_list(list, message):
+    print "Deleting message '{}' from '{}'".format(message, list)
     r.lrem(list, 0, message)
+
+def lpush_message(list, message):
+    print "lpush-ing message '{}' to '{}'".format(message, list)
+    r.lpush(list, message)
+
+def rpush_message(list, message):
+    print "r-pushing message '{}' to '{}'".format(message, list)
+    r.lrem(list, message)

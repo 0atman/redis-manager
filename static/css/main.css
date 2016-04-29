@@ -1,0 +1,13 @@
+.panel .panel-heading{
+  padding-left: 10px;
+}
+.panel .btn-group{
+  margin-top: -6px;
+  margin-right: -10px;
+}
+.panel  .list-group-item{
+  padding: 2px 2px 2px 10px;
+}
+mark{
+  background-color: yellow;
+}
